@@ -1,0 +1,206 @@
+*,
+*::after,
+*::before{
+    margin: 0 0;
+    padding: 0 0;
+    box-sizing: border-box;
+}
+
+:root{
+    --transparent-white: #fffffff8;
+}
+
+* { font-family: Avenir Next; }
+
+body{
+    display: grid;
+    height: 100vh;
+    place-items: center;
+}
+
+.main-container{
+    width: 500px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    display: grid;
+    grid-template-rows: auto auto auto;
+}
+
+.message-header{
+    padding: 10px 15px;
+    border-bottom: 1px solid #e2e2e2;
+    background-color: var(--transparent-white);
+    background: linear-gradient(90deg, #fdfdfdf6, #f6f6f6f6, #fafafaf6);
+    position: absolute;
+    font-weight: 600;
+    display: grid;
+    width: 100%;
+    grid-template-columns: 40px auto 1fr;
+    align-items: center;
+    grid-gap: 10px;
+    backdrop-filter: blur(50px);
+    z-index: 10;
+}
+
+.members{
+    font-size: 13px;
+    justify-self: start;
+    margin-left: -5px;
+    opacity: 0.3;
+}
+
+.blur{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    background: inherit;
+    /* z-index: -1; */
+    opacity: 0.8;
+    /* filter: blur(50px); */
+}
+
+.message-footer{
+    padding: 15px;
+    border-top: 1px solid #e2e2e2;
+    background-color: var(--transparent-white);
+    background: linear-gradient(90deg, #fdfdfdf6, #f6f6f6f6, #fafafaf6);
+    display: grid;
+    /* grid-template-columns: 40px 1fr; */
+    /* align-items: center;
+    grid-gap: 10px; */
+}
+
+.typing-area{
+    display: grid;
+    grid-template-columns: /* auto */ 1fr auto;
+    grid-gap: 10px;
+    align-items: center;
+}
+
+.send-message, .add-attachment {
+    height: 100%;
+    min-width: 60px;
+    border-radius: 30px;
+    background-color: #000000;
+    display: grid;
+    place-items: center;   
+}.send-message > img, .add-attachment > img { width: 15px; filter: invert(100%);}
+
+.message-typing-input{
+    border: 1px solid grey;
+    border-radius: 20px;
+    padding: 7px 15px;
+    width: 100%;
+    font-size: 16px;
+    outline: none;
+    color: grey;
+    font-weight: 500;
+    background: transparent;
+}
+
+.chat-logo{
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.chat-logo > img {
+    width: 100%;
+    height: 100%;
+}
+
+.messages-container{
+    display: grid;
+    padding: 0px 15px;
+    grid-gap: 10px;
+    overflow: scroll;
+    /* min-height: 400px; */
+    max-height: 600px; /*???*/
+}
+
+.messages-container > li {
+    position: relative;
+    padding: 0.5em 0.8em;
+    color: white;
+    border-radius: 10px;
+    max-width: 70%;
+    list-style: none;
+    user-select: none;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+    display: grid;
+    /* min-width: 100px; */
+}
+
+.messages-container > li:first-child{
+    margin-top: calc(15px + 1em + 15px + 25px);
+}.messages-container > li:last-child{
+    margin-bottom: 15px;
+}
+
+.messages-container > .mine{
+    place-self: end;
+    background-color: #75CB87;
+    /* background-color: hsl(0,0%,20%); */
+    border-bottom-right-radius: 0px;
+    margin-right: 42px;
+}
+
+.messages-container > .foreign{
+    place-self: start;
+    background-color: white;
+    /* background: linear-gradient(90deg, #fdfdfdf6, #f6f6f6f6, #fafafaf6); */
+    background-color: #FAF3E1;
+    color: black;
+    border-bottom-left-radius: 0px;
+    /* box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; */
+    margin-left: 42px;
+}
+
+.time-tag{
+    color: black;
+}
+
+.foreign > .time-tag {
+    position: absolute;
+    font-size: 10px;
+    align-self: center;
+    right: -50px;
+}
+
+.mine > .time-tag {
+    position: absolute;
+    font-size: 10px;
+    align-self: center;
+    justify-self: start;
+    left: -50px;
+}
+
+.messages-container > li.foreign{
+
+}
+
+.name-tag {
+    height: 40px;
+    width: 40px;
+    background: black;
+    color: white;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    position: absolute;
+}
+
+.mine > .name-tag { right: -48px; background: #4a8056; }
+.foreign > .name-tag { left: -48px; background: #bdb7a9;}
+
+.mine + .mine > .name-tag,
+.foreign-a + .foreign-a > .name-tag,
+.foreign-b + .foreign-b > .name-tag  {
+    display: none;
+}
