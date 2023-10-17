@@ -19,13 +19,22 @@ body{
 }
 
 .main-container{
+    position: relative;
     width: 500px;
+    height: 700px;
+    /* border: 1px solid red; */
+    /* transform: scale(0.8); */
+}
+
+.chat-container{
+    width: 100%;
+    height: 100%;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     border-radius: 10px;
     overflow: hidden;
     position: relative;
     display: grid;
-    grid-template-rows: auto auto auto;
+    grid-template-rows: auto 1fr auto;
 }
 
 .message-header{
@@ -37,7 +46,7 @@ body{
     font-weight: 600;
     display: grid;
     width: 100%;
-    grid-template-columns: 40px auto 1fr;
+    grid-template-columns: 40px auto 1fr auto;
     align-items: center;
     grid-gap: 10px;
     backdrop-filter: blur(50px);
@@ -65,20 +74,17 @@ body{
 
 .message-footer{
     padding: 15px;
+    align-self: end;
     border-top: 1px solid #e2e2e2;
     background-color: var(--transparent-white);
     background: linear-gradient(90deg, #fdfdfdf6, #f6f6f6f6, #fafafaf6);
-    display: grid;
-    /* grid-template-columns: 40px 1fr; */
-    /* align-items: center;
-    grid-gap: 10px; */
 }
 
 .typing-area{
     display: grid;
     grid-template-columns: /* auto */ 1fr auto;
     grid-gap: 10px;
-    align-items: center;
+    /* align-items: center; */
 }
 
 .send-message, .add-attachment {
@@ -120,8 +126,6 @@ body{
     padding: 0px 15px;
     grid-gap: 10px;
     overflow: scroll;
-    /* min-height: 400px; */
-    max-height: 600px; /*???*/
 }
 
 .messages-container > li {
@@ -148,7 +152,7 @@ body{
     background-color: #75CB87;
     /* background-color: hsl(0,0%,20%); */
     border-bottom-right-radius: 0px;
-    margin-right: 42px;
+    margin-right: 45px;
 }
 
 .messages-container > .foreign{
@@ -159,7 +163,7 @@ body{
     color: black;
     border-bottom-left-radius: 0px;
     /* box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; */
-    margin-left: 42px;
+    margin-left: 45px;
 }
 
 .time-tag{
