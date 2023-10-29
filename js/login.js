@@ -10,6 +10,7 @@ function PrepareForLogin(){
         console.log(success)
 
         if( success.id != null ){
+
             console.log(success.id)
 
             // TODO: Security
@@ -18,7 +19,11 @@ function PrepareForLogin(){
             // TODO: User roles direct to different pages
 
             // TODO: wait timer
-            window.location.href = "./signup.php";
+
+            setTimeout(() => {
+                window.location.href = "./index.php";
+            }, 3000);
+
         }
         else if( success.error == "Login Details Did Not Match" ){
             console.log("You have entered the wrong details")

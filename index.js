@@ -15,3 +15,11 @@ function placeCall() {
 function endCall() {
     hideCallView();
 }
+
+(() => {
+    
+    console.log(USER_NAME);
+    console.log(USER_EMAIL);
+    console.log(USER_ID);
+
+})()
