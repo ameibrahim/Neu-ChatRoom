@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grow</title>
+</head>
+<body>
+
+    <style>
+
+        *{
+            margin: 0 0;
+            padding: 0 0;
+            font-family: Avenir Next;
+            box-sizing: border-box;
+        }
+
+        :root{
+            --light-color: hsl(210, 20%, 90%);
+            --dark-color: #2B63D9;
+            --border-size: 3px;
+            --border-radius: 7px;
+        }
+
+        body{
+            display: grid;
+            height: 100vh;
+            width: 100vw;
+            padding: 50px;
+            justify-items: center;
+            align-items: start;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-template-rows: auto auto 1fr;
+            grid-gap: 20px;
+            background: linear-gradient(55deg, #ffffff, #ffffff, hsl(210, 20%, 90%))
+        }
+
+        div {
+            height: 50px;
+            width: 200px;
+            display: grid;
+            background-color: var(--dark-color);
+            color: white;
+            place-content: center;
+            border-radius: 10px;
+            transition: 0.9s;
+            opacity: 0;
+            transform: scale(0) translateX(200px);
+            grid-column: 3/4;
+        }
+
+        .box2{
+            transform: scale(0) translateX(-200px);
+            grid-column: 2/3;
+        }
+
+    </style>
+
+    <script>
+
+        let body = document.querySelector("body");
+
+            let box = document.createElement("div");
+            let box2 = document.createElement("div");
+
+            box.textContent = "Hello, It's me";
+            box2.textContent = "Hello, I'm Ame";
+            box2.className = "box2";
+
+            body.appendChild(box);
+            body.appendChild(box2);
+
+            setTimeout(() => {
+                box.style.transform = "scale(1) translateX(0px)";
+                box.style.opacity = "1"
+
+                setTimeout(() => {
+                    box2.style.transform = "scale(1) translateX(0px)";
+                    box2.style.opacity = "1"
+                }, 1000);
+            }, 1000);
+
+    </script>
+
+
+    
+</body>
+</html>
