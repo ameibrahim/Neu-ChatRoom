@@ -4,36 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ChatRoom</title>
-    <link rel="stylesheet" href="main.css">
-    <link rel="stylesheet" href="call.css">
- 
-
-    <?php 
-        echo "<script> 
-        const USER_NAME = '".$_SESSION['username']."';
-        const USER_EMAIL = '".$_SESSION['email']."';
-        const USER_ID = '".$_SESSION['id']."';
-
-        console.log(USER_ID)
-        
-        </script>"; 
-    ?>
-    <script src="index.js" defer></script>
+    <link rel="stylesheet" href="css/chat.css">
+    <link rel="stylesheet" href="css/call.css">
+    <?php include 'include/initialize-user-details.js.php'; ?>
+    <script src="js/chat.js" defer></script>
 </head>
 <body>
+
+    <!-- TODO: create a parent file to house all the chat IDs -->
 
     <div class="main-container">
         <div class="chat-container">
             <div class="message-header">
                 <!-- <div class="blur"></div> -->
                 <div class="chat-logo">
-                    <img src="image.jpg" alt="group shot">
+                    <img src="images/person.jpg" alt="group shot">
                 </div>
                 <p class="message-header-title"></p>
                 <p class="members">( 2 Members )</p>
 
                 <div onclick="placeCall()" class="call-action-button pickup small-size">
-                    <img src="green-call.png" alt="">
+                    <img src="images/green-call.png" alt="">
                 </div>
             </div>
 
@@ -105,11 +96,11 @@
             <div class="message-footer">
                 <div class="typing-area">
                     <!-- <div class="add-attachment">
-                        <img src="plus.png" alt="">
+                        <img src="images/plus.png" alt="">
                     </div> -->
                     <input type="text" placeholder="Type a message ..." class="message-typing-input">
                     <div class="send-message">
-                        <img src="send.png" alt="">
+                        <img src="images/send.png" alt="">
                     </div>
                 </div>
             </div>
@@ -118,7 +109,7 @@
         <div class="call-card-view">
 
             <div class="blurred-background">
-                <img src="person.jpg"/>
+                <img src="images/person.jpg"/>
             </div>
 
             <div class="background-view"></div>
@@ -131,7 +122,7 @@
       
             <div class="caller-details">
               <div class="circle-container">
-                <img src="person.jpg" class="call-image"/>
+                <img src="images/person.jpg" class="call-image"/>
               </div>
               <p class="phoneNumber">Abdul Munim</p>
               <p class="calling">Calling</p>
@@ -139,10 +130,10 @@
       
             <div class="call-actions caller">
               <div onclick="endCall()" class="call-action-button hangup">
-                  <img src="red-call.png" alt="">
+                  <img src="images/red-call.png" alt="">
               </div>
               <!-- <div class="call-action-button pickup">
-                  <img src="green-call.png" alt="">
+                  <img src="images/green-call.png" alt="">
               </div> -->
             </div>
           </div>

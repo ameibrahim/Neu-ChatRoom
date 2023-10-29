@@ -22,7 +22,7 @@ function PrepareForLogin(){
 
             setTimeout(() => {
                 window.location.href = "./index.php";
-            }, 3000);
+            }, 1000);
 
         }
         else if( success.error == "Login Details Did Not Match" ){

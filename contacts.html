@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatRoom</title>
+    <link rel="stylesheet" href="contacts.css">
+    <script src="contacts.js" defer></script>
+</head>
+<body>
+
+    <div class="main-container">
+        <div class="inner-view contacts-view">
+            <div class="personal-header">
+                <p></p>
+                <span class="action-icon">
+                    <img src="images/icons/fi-rr-arrow-alt-square-left.svg" alt="">
+                </span>
+                <div class="avatar">
+                    <img src="images/image.jpg">
+                </div>
+            </div>
+    
+            <div class="contacts-container">
+                <div class="contact-row" data-chatid="123456" onclick="slideInChatView(); slideOutContactsView();">
+                    <!-- what if the data-chatid was already placed as a link -->
+                    <div class="avatar">
+                        <img src="images/person.jpg">
+                    </div>
+                    <p class="row-title">Abdul Munim</p>
+                    <span class="action-icon">
+                        <!-- <img src="images/icons/fi-rr-angle-small-right.svg" alt=""> -->
+                        <img src="images/icons/fi-rr-angle-circle-right.svg" alt="">
+                    </span>
+                </div>
+    
+                <div class="contact-row" data-chatid="000000">
+                    <div class="avatar">
+                        <img src="images/person.jpg">
+                    </div>
+                    <p class="row-title">Johnny John</p>
+                    <span class="action-icon">
+                        <!-- <img src="images/icons/fi-rr-angle-small-right.svg" alt=""> -->
+                        <img src="images/icons/fi-rr-angle-circle-right.svg" alt="">
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="inner-view chat-view" onclick="slideOutChatView(); slideInContactsView();"></div>
+
+    </div>
+
+    
+</body>
+</html>

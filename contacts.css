@@ -1,0 +1,105 @@
+*,
+*::after,
+*::before{
+    margin: 0 0;
+    padding: 0 0;
+    box-sizing: border-box;
+}
+
+:root{
+    --transparent-white: #fffffff8;
+}
+
+* { font-family: Avenir Next; }
+
+body{
+    display: grid;
+    height: 100vh;
+    place-items: center;
+    --margin-from-header: calc(40px + 20px);
+}
+
+.main-container{
+    position: relative;
+    width: 500px;
+    height: 700px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.inner-view{
+    position: absolute;
+    height: inherit;
+    width: inherit;
+    left: 0%;
+    transition: 0.6s all;
+    /* background: red; */
+}
+
+.chat-view{
+    background-color: blue;
+    left: 100%;
+}
+
+.contacts-container{
+    width: 100%;
+    position: relative;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    margin-top: var(--margin-from-header);
+    overflow: scroll;
+    height: calc(100% - var(--margin-from-header));
+    align-items: start;
+}
+
+.personal-header{
+    padding: 10px 15px;
+    border-bottom: 1px solid #e2e2e2;
+    background-color: var(--transparent-white);
+    background: linear-gradient(90deg, #fdfdfdf6, #f6f6f6f6, #fafafaf6);
+    position: absolute;
+    font-weight: 600;
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr auto auto;
+    align-items: center;
+    grid-gap: 10px;
+    backdrop-filter: blur(50px);
+    z-index: 1;
+}
+
+.avatar{
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.action-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.avatar > img, .action-icon > img{
+    width: 100%;
+}
+
+.contact-row {
+    padding: 10px 15px;
+    border-bottom: 1px solid #e2e2e2;
+    background-color: var(--transparent-white);
+    font-weight: 600;
+    display: grid;
+    width: 100%;
+    grid-template-columns: 40px 1fr auto;
+    align-items: center;
+    grid-gap: 10px;
+    cursor: pointer;
+    transition: 0.3s all;
+}
+
+.contact-row:hover {
+    background: #f6f6f6;
+}
