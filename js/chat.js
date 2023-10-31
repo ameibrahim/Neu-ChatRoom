@@ -1,8 +1,13 @@
 let callView = document.querySelector(".call-card-view");
 
-function messageID(preText = ""){
+function createMessageID(preText = ""){
     const date = Date.now();
     return preText + date;
+}
+
+function formattedTime(date){
+    var time = String(date.getHours()).padStart(2,"0") + ":" + String(date.getMinutes()).padStart(2,"0");
+    return time;
 }
 
 async function loadMessagesFrom(chatID) {
@@ -33,6 +38,8 @@ async function loadMessagesFrom(chatID) {
     });
 }
 
+
+
 function displayMessagesFor(givenID, messages){
 
     let messageContainer = document.querySelector(".messages-container");
@@ -56,14 +63,14 @@ function displayMessagesFor(givenID, messages){
 
         // let nametag = createTag(message.username);
 
-        let time = new Date(message.timestamp);
-        time = `${time.getHours()}:${time.getMinutes()}`;
+        let messageTime = new Date(message.timestamp);
+        messageTime = formattedTime(messageTime);
         
         let messageStructure = `
             <li class="${className}">
                 <p class="name-tag">${nametag}</p>
                 <p>${message.message}</p>
-                <p class="time-tag">${time} am</p>
+                <p class="time-tag">${messageTime} am</p>
             </li>
         `;
 
@@ -91,38 +98,63 @@ function endCall() {
 }
 
 let messageTypingInput = document.querySelector(".message-typing-input");
+let sendMessageButton = document.querySelector(".send-message");
 
-messageTypingInput.addEventListener('click', () => {
+sendMessageButton.addEventListener('click', async () => {
 
     let message = messageTypingInput.value;
 
     if (!regexCheck(message)){
+
+        console.log("ISSSSUEEES")
         // showAlert("Your message seems to contain malicious content")
     }
     else{
-        sendMessage(message)
-        showMessageLoaderPromise();
+
+        let messageObject = { 
+            messageID: createMessageID(), 
+            chatID: globalChatID, 
+            message, 
+            senderID: personalID 
+        }
+
+        await sendMessage(messageObject);
+
+        messageTypingInput.value = "";
+        // showMessageLoaderPromise();
     }
 });
 
-async function sendMessage(message) {
+function regexCheck(message) {
+    return true;
+}
+
+async function sendMessage(messageObject) {
+
+    let { messageID, chatID, message, senderID } = messageObject;
+
+    let params = `messageID=${messageID}&&`+
+        `chatID=${chatID}&&`+
+        `message=${message}&&`+
+        `senderID=${senderID}&&`;
 
     return new Promise((resolve,reject) => {
-        let params = `chatID=${chatID}`;
+
         let xhr = new XMLHttpRequest();
-        xhr.open("POST", "include/messages.fetch.php", true);
+        xhr.open("POST", "include/messages.insert.php", true);
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
         xhr.onload = function(){
             if( this.status == 200 ){
-                let messages = JSON.parse(this.responseText);
-                displayMessagesFor(personalID, messages);
-                // if(details == "") reject("Report Does Not Exist");
-                // else { resolve(details) }
-                resolve(messages);
+                let result = this.responseText;
+                console.log(result);
+
+                if(result != "success") reject("New Message Not Sent");
+                else { resolve(result) }
+                resolve(result);
             }
             else{
-                reject("Error Fetching User Details");
+                reject("Error With PHP Script");
             }
         }
 

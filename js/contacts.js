@@ -1,7 +1,8 @@
 let chatView = document.querySelector(".chat-view");
 let contactsView = document.querySelector(".contacts-view");
 slideOutChatView();
-let personalID = "xyz"; // make dynamic user
+
+let globalChatID = "";
 
 function slideInChatView(eventTrigger){ 
     chatView.style.left = "0%";
@@ -17,6 +18,7 @@ function slideInChatView(eventTrigger){
     let emailPlaceholder = document.querySelector(".members");
     emailPlaceholder.textContent = `( ${email} )`;
 
+    globalChatID = chatID;
     loadMessagesFrom(chatID);
 }
 
