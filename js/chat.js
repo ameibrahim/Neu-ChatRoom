@@ -1,46 +1,59 @@
-// This one is for the person you are texting
-let caller_email = "abdulmunim@yahoo.com";
-let caller_name = "abdulmunim";
-let caller_id = "xyz"; 
-
-// this is for the both of you
-let chatID = "";
-
-( async () => {
-    
-    // this is yours
-    console.log(USER_NAME);
-    console.log(USER_EMAIL);
-    console.log(USER_ID);
-
-
-
-    // let usernamePlaceholder = document.querySelector(".message-header-title");
-    // usernamePlaceholder.textContent = USER_NAME;
-
-    // let emailPlaceholder = document.querySelector(".members");
-    // emailPlaceholder.textContent = `( ${USER_EMAIL} )`;
-
-    let usernamePlaceholder = document.querySelector(".message-header-title");
-    usernamePlaceholder.textContent = caller_name;
-
-    let emailPlaceholder = document.querySelector(".members");
-    emailPlaceholder.textContent = `( ${caller_email} )`;
-
-    await loadMessagesFrom(chatID);
-
-})()
-
-
-async function loadMessagesFrom(email) {
-    console.log("yey");
-}
-
-function displayMessages(){
-    
-}
-
 let callView = document.querySelector(".call-card-view");
+
+async function loadMessagesFrom(chatID) {
+    displayMessagesFor(personalID);
+}
+
+function displayMessagesFor(givenID){
+
+    let messageContainer = document.querySelector(".messages-container");
+    let containerHTML = "";
+
+    let messages = [
+        {
+            message: "Hello",
+            sender: "xyz",
+            receiver: "abc",
+            time: "12:34",
+
+        },
+
+        {
+            message: "Hello",
+            sender: "abc",
+            receiver: "xyz",
+            time: "12:34",
+
+        }
+    ]
+
+    messages.forEach( message => {
+
+        let className = "";
+
+        switch(message.sender){
+            case givenID:
+                className = "mine";
+            break;
+            default:
+                className = "foreign foreign-a";
+            break;
+        } 
+        
+        let messageStructure = `
+            <li class=${className}>
+                <p class="name-tag">A</p>
+                <p>${message.message}</p>
+                <p class="time-tag">${message.time} am</p>
+            </li>
+        `;
+
+        containerHTML += messageStructure;
+
+    });
+
+    messageContainer.innerHTML = containerHTML;
+}
 
 function showCallView() {
     callView.style.display = "grid";
@@ -60,7 +73,7 @@ function endCall() {
 
 let messageTypingInput = document.querySelector(".message-typing-input");
 
-messageTypingInput.addEventListener(() => {
+    messageTypingInput.addEventListener('click', () => {
 
     let message = messageTypingInput.value;
 

@@ -47,7 +47,7 @@ body{
     font-weight: 600;
     display: grid;
     width: 100%;
-    grid-template-columns: 40px auto 1fr auto;
+    grid-template-columns: 30px 40px auto 1fr auto;
     align-items: center;
     grid-gap: 10px;
     backdrop-filter: blur(50px);
@@ -208,4 +208,8 @@ body{
 .foreign-a + .foreign-a > .name-tag,
 .foreign-b + .foreign-b > .name-tag  {
     display: none;
+}
+
+.back-button{
+    cursor: pointer;
 }

@@ -1,16 +1,31 @@
 let chatView = document.querySelector(".chat-view");
 let contactsView = document.querySelector(".contacts-view");
 slideOutChatView();
+let personalID = "xyz"; // make dynamic user
 
+function slideInChatView(eventTrigger){ 
+    chatView.style.left = "0%";
+    let chatID = eventTrigger.getAttribute("data-chatid");
+    let username = eventTrigger.getAttribute("data-username");
+    let email = eventTrigger.getAttribute("data-email");
+    let receiver = eventTrigger.getAttribute("data-receiver"); /*
+    should this be refetched ??? */
 
-function slideInChatView(){ chatView.style.left = "0%" }
+    let usernamePlaceholder = document.querySelector(".message-header-title");
+    usernamePlaceholder.textContent = username;
+
+    let emailPlaceholder = document.querySelector(".members");
+    emailPlaceholder.textContent = `( ${email} )`;
+
+    loadMessagesFrom(chatID);
+}
+
 function slideOutChatView(){ chatView.style.left = "100%" }
 function slideOutContactsView(){ contactsView.style.left = "-100%" }
 function slideInContactsView(){ contactsView.style.left = "0%" }
 
 ( async () => {
 
-    let personalID = "xyz"; // make dynamic user
     let results = await loadContacts(personalID);
     await buildContactsView(results);
 
@@ -52,7 +67,7 @@ async function buildContactsView(contacts){
     contacts.forEach(contact => {
         
         let contactRow = `
-            <div class="contact-row" data-chatid=${contact.chat_id} onclick="slideInChatView(this); slideOutContactsView();">
+            <div class="contact-row" data-email=${contact.email} data-username=${contact.username} data-receiver=${contact.receiver} data-chatid=${contact.chat_id} onclick="slideInChatView(this); slideOutContactsView();">
                 <!-- what if the data-chatid was already placed as a link -->
                 <div class="avatar">
                     <img src="images/person.jpg">

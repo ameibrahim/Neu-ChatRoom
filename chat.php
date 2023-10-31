@@ -31,13 +31,15 @@
             </div>
         </div>
 
-        <div class="inner-view chat-view" onclick="slideOutChatView(); slideInContactsView();">
+        <div class="inner-view chat-view" onclick="slideInContactsView()">
                 <div class="message-header">
-                    <!-- <div class="blur"></div> -->
+                    <span class="action-icon back-button" onclick="slideOutChatView()">
+                        <img src="images/icons/fi-rr-arrow-alt-left.svg" alt="">
+                    </span>
                     <div class="chat-logo">
                         <img src="images/person.jpg" alt="group shot">
                     </div>
-                    <p class="message-header-title">Munim</p>
+                    <p class="message-header-title"></p>
                     <p class="members">( 2 Members )</p>
     
                     <div onclick="placeCall()" class="call-action-button pickup small-size">
@@ -46,68 +48,7 @@
                 </div>
     
                 <ul class="messages-container">
-                    <li class="mine">
-                        <p class="name-tag">IA</p>
-                        <p>Hello</p>
-                        <p class="time-tag">12:34 am</p>
-                    </li>
-                    <li class="foreign foreign-a">
-                        <p class="name-tag">CD</p>
-                        <p>Hello</p>
-                        <p class="time-tag">12:34 am</p>
-                    </li>
-                    <li class="foreign foreign-a">
-                        <p class="name-tag">CD</p>
-                        <p>My Name is Ibrahim Ame, I am a student at your university.
-                            I need some help with my email account. I can't access it.</p>
-                        <p class="time-tag">12:35 am</p>
-                    </li>
-                    <li class="foreign foreign-a">
-                        <p class="name-tag">CD</p>
-                        <p>Hello Ibrahim, I would love to assist you with your account.</p>
-                    <p class="time-tag">12:35 am</p>
-                    </li>
-                    <li class="foreign foreign-a">
-                        <p class="name-tag">CD</p>
-                        <p>We can send you a password reset link to your regular email address, and then you can regain access to your account.</p>
-                    <p class="time-tag">12:36 am</p>
-                    </li>
-    
-                    <li class="mine">
-                        <p class="name-tag">IA</p>
-                        <p>That would be amazing.</p>
-                    <p class="time-tag">12:36 am</p>
-                    </li>
-    
-                    <li class="mine">
-                        <p class="name-tag">IA</p>
-                        <p>My email is ame.ibrahim@yahoo.com</p>
-                    <p class="time-tag">12:36 am</p>
-                    </li>
-    
-                    <li class="foreign foreign-a">
-                        <p class="name-tag">CD</p>
-                        <p>Expect an email within the next 5 minutes. Have a great day.</p>
-                    <p class="time-tag">12:37 am</p>
-                    </li>
-    
-                    <!-- <li class="foreign foreign-b">
-                        <p class="name-tag" >JK</p>
-                        <p>Expect an email within the next 5 minutes. Have a great day.</p>
-                    <p class="time-tag">12:37 am</p>
-                    </li>
-    
-                    <li class="foreign foreign-b">
-                        <p class="name-tag" >JK</p>
-                        <p>Expect an email within the next 5 minutes. Have a great day.</p>
-                    <p class="time-tag">12:37 am</p>
-                    </li>
-    
-                    <li class="foreign foreign-a">
-                        <p class="name-tag" >CD</p>
-                        <p>Expect an email within the next 5 minutes. Have a great day.</p>
-                    <p class="time-tag">12:37 am</p>
-                    </li> -->
+                    
                 </ul>
     
                 <div class="message-footer">
