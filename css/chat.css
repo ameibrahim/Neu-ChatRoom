@@ -35,7 +35,17 @@ body{
     left: 100%;
     background-color: white;
     z-index: 2;
+}
 
+.chat-view::after{
+    content: "";
+    position: absolute;
+    height: 100%;
+    background-color: #00000020;
+    width: 1px;
+    top: 0px;
+    left: -0.5px;
+    z-index: 10;
 }
 
 .message-header{
@@ -104,9 +114,9 @@ body{
     width: 100%;
     font-size: 16px;
     outline: none;
-    color: grey;
-    font-weight: 500;
-    background: transparent;
+    color: black;
+    font-weight: 400;
+    background: white;
 }
 
 .chat-logo{

@@ -1,50 +1,69 @@
 let callView = document.querySelector(".call-card-view");
 
-async function loadMessagesFrom(chatID) {
-    displayMessagesFor(personalID);
+function messageID(preText = ""){
+    const date = Date.now();
+    return preText + date;
 }
 
-function displayMessagesFor(givenID){
+async function loadMessagesFrom(chatID) {
+
+    //TODO: Only load 20 message on load
+
+    return new Promise((resolve,reject) => {
+        let params = `chatID=${chatID}`;
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", "include/messages.fetch.php", true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+        xhr.onload = function(){
+            if( this.status == 200 ){
+                let messages = JSON.parse(this.responseText);
+                displayMessagesFor(personalID, messages);
+                // if(details == "") reject("Report Does Not Exist");
+                // else { resolve(details) }
+                resolve(messages);
+            }
+            else{
+                reject("Error Fetching User Details");
+            }
+        }
+
+        xhr.send(params);
+
+    });
+}
+
+function displayMessagesFor(givenID, messages){
 
     let messageContainer = document.querySelector(".messages-container");
     let containerHTML = "";
 
-    let messages = [
-        {
-            message: "Hello",
-            sender: "xyz",
-            receiver: "abc",
-            time: "12:34",
-
-        },
-
-        {
-            message: "Hello",
-            sender: "abc",
-            receiver: "xyz",
-            time: "12:34",
-
-        }
-    ]
-
     messages.forEach( message => {
 
         let className = "";
+        let nametag = "";
 
-        switch(message.sender){
+        switch(message.sender_id){
             case givenID:
                 className = "mine";
+                nametag = "A";
             break;
             default:
                 className = "foreign foreign-a";
+                nametag = "B";
             break;
         } 
+
+        // let nametag = createTag(message.username);
+
+        let time = new Date(message.timestamp);
+        time = `${time.getHours()}:${time.getMinutes()}`;
         
         let messageStructure = `
-            <li class=${className}>
-                <p class="name-tag">A</p>
+            <li class="${className}">
+                <p class="name-tag">${nametag}</p>
                 <p>${message.message}</p>
-                <p class="time-tag">${message.time} am</p>
+                <p class="time-tag">${time} am</p>
             </li>
         `;
 
@@ -73,7 +92,7 @@ function endCall() {
 
 let messageTypingInput = document.querySelector(".message-typing-input");
 
-    messageTypingInput.addEventListener('click', () => {
+messageTypingInput.addEventListener('click', () => {
 
     let message = messageTypingInput.value;
 
@@ -86,8 +105,31 @@ let messageTypingInput = document.querySelector(".message-typing-input");
     }
 });
 
-function sendMessage(message) {
+async function sendMessage(message) {
 
+    return new Promise((resolve,reject) => {
+        let params = `chatID=${chatID}`;
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", "include/messages.fetch.php", true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+        xhr.onload = function(){
+            if( this.status == 200 ){
+                let messages = JSON.parse(this.responseText);
+                displayMessagesFor(personalID, messages);
+                // if(details == "") reject("Report Does Not Exist");
+                // else { resolve(details) }
+                resolve(messages);
+            }
+            else{
+                reject("Error Fetching User Details");
+            }
+        }
+
+        xhr.send(params);
+
+    });
+    
     //TODO: Prepare message with table header values
     //TODO: Send message using AJAX
     //TODO: resolve showMessageLoader() ... HARD
@@ -99,34 +141,6 @@ function loadNewMessages(chatID, lastSyncedMessageID){
 
     //TODO: use the lastSyncedMessageID to filter all the newest messages from the database ... K.I
     //TODO: return the values and repopulate the view
-}
-
-function fetchChatIDs(personalID){
-
-    //TODO: Schema build for participants in a group to have a flag of
-    // allowed to true
-    //TODO: ??? Schema build for participants in a group to have a flag of
-    // role to standard / admin
-    //TODO: links that load chats ... links are shareable
-    // Should links load chats ??? Privacy ???
-
-    //TODO: Schema build for chats to be specified as [type] -- [privacy]
-    //[type]: direct, group
-    // all chats are private
-
-    //TODO: Future build check for group chats to have a cascade table of admins
-    // and be able to accept new users into the group
-
-    //TODO: use the personalID to fetch all the groups/chats this person has
-    // an association to
-
-    //TODO: display all the available chats and then on-click it loads from a link
-    // the respective chat
-
-}
-
-function loadMessages(chatID){
-    //TODO: Only load 20 message on load
 }
 
 // TODO: create a function that load older message when you scroll too

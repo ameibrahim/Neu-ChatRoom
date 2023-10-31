@@ -67,7 +67,7 @@ async function buildContactsView(contacts){
     contacts.forEach(contact => {
         
         let contactRow = `
-            <div class="contact-row" data-email=${contact.email} data-username=${contact.username} data-receiver=${contact.receiver} data-chatid=${contact.chat_id} onclick="slideInChatView(this); slideOutContactsView();">
+            <div class="contact-row" data-email=${contact.email} data-username=${contact.username} data-receiver=${contact.receiver} data-chatid=${contact.chat_id} onclick="slideInChatView(this)">
                 <!-- what if the data-chatid was already placed as a link -->
                 <div class="avatar">
                     <img src="images/person.jpg">
@@ -87,3 +87,23 @@ async function buildContactsView(contacts){
     contactsContainer.innerHTML = HTMLContent;
 
 }
+
+//TODO: Schema build for participants in a group to have a flag of
+// allowed to true
+//TODO: ??? Schema build for participants in a group to have a flag of
+// role to standard / admin
+//TODO: links that load chats ... links are shareable
+// Should links load chats ??? Privacy ???
+
+//TODO: Schema build for chats to be specified as [type] -- [privacy]
+//[type]: direct, group
+// all chats are private
+
+//TODO: Future build check for group chats to have a cascade table of admins
+// and be able to accept new users into the group
+
+//TODO: -- DONE: use the personalID to fetch all the groups/chats this person has
+// an association to
+
+//TODO: -- DONE display all the available chats and then on-click it loads from a link
+// the respective chat
