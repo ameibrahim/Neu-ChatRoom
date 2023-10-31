@@ -3,7 +3,7 @@
 
   $user = isset($_SESSION['username']);
 
-  if($user){ include 'contacts.php'; }
+  if($user){ include 'chat.php'; }
   else{ header('location:./login.php'); }
   
 ?>
