@@ -4,139 +4,99 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ChatRoom</title>
+    <link rel="stylesheet" href="css/contacts.css">
     <link rel="stylesheet" href="css/chat.css">
     <link rel="stylesheet" href="css/call.css">
     <?php include 'include/initialize-user-details.js.php'; ?>
+    <script src="js/contacts.js" defer></script>
     <script src="js/chat.js" defer></script>
 </head>
 <body>
 
-    <!-- TODO: create a parent file to house all the chat IDs -->
+    <!-- TODO: - DONE: create a parent file to house all the chat IDs -->
 
     <div class="main-container">
-        <div class="chat-container">
-            <div class="message-header">
-                <!-- <div class="blur"></div> -->
-                <div class="chat-logo">
-                    <img src="images/person.jpg" alt="group shot">
-                </div>
-                <p class="message-header-title"></p>
-                <p class="members">( 2 Members )</p>
-
-                <div onclick="placeCall()" class="call-action-button pickup small-size">
-                    <img src="images/green-call.png" alt="">
+        <div class="inner-view contacts-view">
+            <div class="personal-header">
+                <p></p>
+                <span class="action-icon">
+                    <img src="images/icons/fi-rr-arrow-alt-square-left.svg" alt="">
+                </span>
+                <div class="avatar">
+                    <img src="images/image.jpg">
                 </div>
             </div>
-
-            <ul class="messages-container">
-                <li class="mine">
-                    <p class="name-tag">IA</p>
-                    <p>Hello</p>
-                    <p class="time-tag">12:34 am</p>
-                </li>
-                <li class="foreign foreign-a">
-                    <p class="name-tag">CD</p>
-                    <p>Hello</p>
-                    <p class="time-tag">12:34 am</p>
-                </li>
-                <li class="foreign foreign-a">
-                    <p class="name-tag">CD</p>
-                    <p>My Name is Ibrahim Ame, I am a student at your university.
-                        I need some help with my email account. I can't access it.</p>
-                    <p class="time-tag">12:35 am</p>
-                </li>
-                <li class="foreign foreign-a">
-                    <p class="name-tag">CD</p>
-                    <p>Hello Ibrahim, I would love to assist you with your account.</p>
-                <p class="time-tag">12:35 am</p>
-                </li>
-                <li class="foreign foreign-a">
-                    <p class="name-tag">CD</p>
-                    <p>We can send you a password reset link to your regular email address, and then you can regain access to your account.</p>
-                <p class="time-tag">12:36 am</p>
-                </li>
-
-                <li class="mine">
-                    <p class="name-tag">IA</p>
-                    <p>That would be amazing.</p>
-                <p class="time-tag">12:36 am</p>
-                </li>
-
-                <li class="mine">
-                    <p class="name-tag">IA</p>
-                    <p>My email is ame.ibrahim@yahoo.com</p>
-                <p class="time-tag">12:36 am</p>
-                </li>
-
-                <li class="foreign foreign-a">
-                    <p class="name-tag">CD</p>
-                    <p>Expect an email within the next 5 minutes. Have a great day.</p>
-                <p class="time-tag">12:37 am</p>
-                </li>
-
-                <!-- <li class="foreign foreign-b">
-                    <p class="name-tag" >JK</p>
-                    <p>Expect an email within the next 5 minutes. Have a great day.</p>
-                <p class="time-tag">12:37 am</p>
-                </li>
-
-                <li class="foreign foreign-b">
-                    <p class="name-tag" >JK</p>
-                    <p>Expect an email within the next 5 minutes. Have a great day.</p>
-                <p class="time-tag">12:37 am</p>
-                </li>
-
-                <li class="foreign foreign-a">
-                    <p class="name-tag" >CD</p>
-                    <p>Expect an email within the next 5 minutes. Have a great day.</p>
-                <p class="time-tag">12:37 am</p>
-                </li> -->
-            </ul>
-
-            <div class="message-footer">
-                <div class="typing-area">
-                    <!-- <div class="add-attachment">
-                        <img src="images/plus.png" alt="">
-                    </div> -->
-                    <input type="text" placeholder="Type a message ..." class="message-typing-input">
-                    <div class="send-message">
-                        <img src="images/send.png" alt="">
-                    </div>
-                </div>
+    
+            <div class="contacts-container">
             </div>
         </div>
 
-        <div class="call-card-view">
-
-            <div class="blurred-background">
-                <img src="images/person.jpg"/>
+        <div class="inner-view chat-view" onclick="slideInContactsView()">
+                <div class="message-header">
+                    <span class="action-icon back-button" onclick="slideOutChatView()">
+                        <img src="images/icons/fi-rr-arrow-alt-left.svg" alt="">
+                    </span>
+                    <div class="chat-logo">
+                        <img src="images/person.jpg" alt="group shot">
+                    </div>
+                    <p class="message-header-title"></p>
+                    <p class="members">( 2 Members )</p>
+    
+                    <div onclick="placeCall()" class="call-action-button pickup small-size">
+                        <img src="images/green-call.png" alt="">
+                    </div>
+                </div>
+    
+                <ul class="messages-container">
+                    
+                </ul>
+    
+                <div class="message-footer">
+                    <div class="typing-area">
+                        <!-- <div class="add-attachment">
+                            <img src="images/plus.png" alt="">
+                        </div> -->
+                        <input type="text" placeholder="Type a message ..." class="message-typing-input">
+                        <div class="send-message">
+                            <img src="images/send.png" alt="">
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <div class="background-view"></div>
-
-            <div class="circle-animation">
-                <div class="circle one"></div>
-                <div class="circle two"></div>
-                <div class="circle three"></div>
+    
+            <div class="call-card-view">
+    
+                <div class="blurred-background">
+                    <img src="images/person.jpg"/>
+                </div>
+    
+                <div class="background-view"></div>
+    
+                <div class="circle-animation">
+                    <div class="circle one"></div>
+                    <div class="circle two"></div>
+                    <div class="circle three"></div>
+                </div>
+          
+                <div class="caller-details">
+                  <div class="circle-container">
+                    <img src="images/person.jpg" class="call-image"/>
+                  </div>
+                  <p class="phoneNumber">Abdul Munim</p>
+                  <p class="calling">Calling</p>
+                </div>
+          
+                <div class="call-actions caller">
+                  <div onclick="endCall()" class="call-action-button hangup">
+                      <img src="images/red-call.png" alt="">
+                  </div>
+                  <!-- <div class="call-action-button pickup">
+                      <img src="images/green-call.png" alt="">
+                  </div> -->
+                </div>
             </div>
-      
-            <div class="caller-details">
-              <div class="circle-container">
-                <img src="images/person.jpg" class="call-image"/>
-              </div>
-              <p class="phoneNumber">Abdul Munim</p>
-              <p class="calling">Calling</p>
-            </div>
-      
-            <div class="call-actions caller">
-              <div onclick="endCall()" class="call-action-button hangup">
-                  <img src="images/red-call.png" alt="">
-              </div>
-              <!-- <div class="call-action-button pickup">
-                  <img src="images/green-call.png" alt="">
-              </div> -->
-            </div>
-          </div>
+        
+        </div>
 
     </div>
 
