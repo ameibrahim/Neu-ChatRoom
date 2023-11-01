@@ -1,4 +1,5 @@
 let callView = document.querySelector(".call-card-view");
+let lastSyncedMessageID = "";
 
 function createMessageID(preText = ""){
     const date = Date.now();
@@ -8,6 +9,14 @@ function createMessageID(preText = ""){
 function formattedTime(date){
     var time = String(date.getHours()).padStart(2,"0") + ":" + String(date.getMinutes()).padStart(2,"0");
     return time;
+}
+
+function addslashes( str ) {
+    return (str + '').replace(/[\\"']/g, '\\$&').replace(/\u0000/g, '\\0');
+}
+
+function scrollBottom(element) {
+    element.scroll({ top: element.scrollHeight, behavior: "smooth"})
 }
 
 async function loadMessagesFrom(chatID) {
@@ -45,7 +54,9 @@ function displayMessagesFor(givenID, messages){
     let messageContainer = document.querySelector(".messages-container");
     let containerHTML = "";
 
-    messages.forEach( message => {
+    // console.log("messages: ", messages);
+
+    messages.forEach( (message,index) => {
 
         let className = "";
         let nametag = "";
@@ -75,10 +86,59 @@ function displayMessagesFor(givenID, messages){
         `;
 
         containerHTML += messageStructure;
+        lastSyncedMessageID = message.message_id;
 
     });
 
     messageContainer.innerHTML = containerHTML;
+
+    scrollBottom(messageContainer);
+
+    startContinuousCheckForNewMessages();
+}
+
+function pushMessageToView(givenID, messageObject){
+
+    let messageContainer = document.querySelector(".messages-container");
+
+    let className = "";
+    let nametag = "";
+
+    let { messageID, message, senderID } = messageObject;
+    // Standardize how you name these variables across MYSQL and JS
+
+    switch(senderID){
+        case givenID:
+            className = "mine";
+            nametag = "A";
+        break;
+        default:
+            className = "foreign foreign-a";
+            nametag = "B";
+        break;
+    } 
+
+    // The time needs to come from the server ...
+    let messageTime = new Date();
+    messageTime = formattedTime(messageTime);
+
+    let messageStructure = `
+        <p class="name-tag">${nametag}</p>
+        <p>${message}</p>
+        <p class="time-tag">${messageTime} am</p>
+    `;
+    
+    let innerContainer = document.createElement("li");
+    innerContainer.className = className;
+
+    innerContainer.innerHTML = messageStructure;
+
+    messageContainer.appendChild(innerContainer);
+
+    lastSyncedMessageID = messageID;
+
+    scrollBottom(messageContainer);
+
 }
 
 function showCallView() {
@@ -120,7 +180,10 @@ sendMessageButton.addEventListener('click', async () => {
 
         await sendMessage(messageObject);
 
+        // What happens when the user presses enter
         messageTypingInput.value = "";
+        pushMessageToView(personalID, messageObject);
+
         // showMessageLoaderPromise();
     }
 });
@@ -135,7 +198,7 @@ async function sendMessage(messageObject) {
 
     let params = `messageID=${messageID}&&`+
         `chatID=${chatID}&&`+
-        `message=${message}&&`+
+        `message=${addslashes(message)}&&`+
         `senderID=${senderID}&&`;
 
     return new Promise((resolve,reject) => {
@@ -151,7 +214,6 @@ async function sendMessage(messageObject) {
 
                 if(result != "success") reject("New Message Not Sent");
                 else { resolve(result) }
-                resolve(result);
             }
             else{
                 reject("Error With PHP Script");
@@ -162,8 +224,8 @@ async function sendMessage(messageObject) {
 
     });
     
-    //TODO: Prepare message with table header values
-    //TODO: Send message using AJAX
+    //TODO: -- DONE Prepare message with table header values
+    //TODO: -- DONE Send message using AJAX
     //TODO: resolve showMessageLoader() ... HARD
     //TODO: load new messages on other side of the chat.
 
@@ -171,8 +233,54 @@ async function sendMessage(messageObject) {
 
 function loadNewMessages(chatID, lastSyncedMessageID){
 
+    return new Promise((resolve,reject) => {
+        let params = `chatID=${chatID}&&lastSyncedMessageID=${lastSyncedMessageID}`;
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", "include/new-messages.fetch.php", true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+        xhr.onload = function(){
+            if( this.status == 200 ){
+                let messages = JSON.parse(this.responseText);
+                console.log(messages);
+
+
+                if(messages.length != 0){
+                    let messageObject = { 
+                        messageID: messages[0].message_id,
+                        message : messages[0].message, 
+                        senderID: messages[0].sender_id 
+                    };
+    
+                    //TODO:  Time aspect is missing
+    
+                    pushMessageToView(personalID, messageObject);
+                }
+                // pushMessageToView needs to be pushMessagesToView
+                // displayMessagesFor(personalID, messages);
+                // if(details == "") reject("Report Does Not Exist");
+                // else { resolve(details) }
+                resolve(messages);
+            }
+            else{
+                reject("Error Fetching User Details");
+            }
+        }
+
+        xhr.send(params);
+
+    });
+
     //TODO: use the lastSyncedMessageID to filter all the newest messages from the database ... K.I
     //TODO: return the values and repopulate the view
+}
+
+async function startContinuousCheckForNewMessages(){
+    setInterval(() => {
+        loadNewMessages(globalChatID,lastSyncedMessageID);
+    }, 2000);
+
+    //TODO:  Is there a better way to do this?
 }
 
 // TODO: create a function that load older message when you scroll too

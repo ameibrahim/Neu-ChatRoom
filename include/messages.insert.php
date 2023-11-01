@@ -6,7 +6,9 @@
 
     $messageID = $_POST['messageID'];
     $chatID = $_POST['chatID'];
-    $message = $_POST['message'];
+    $message = htmlentities($_POST['message']);
+
+    // $message = mysql_real_escape_string("" . $message);
     $senderID = $_POST['senderID'];
 
     if (!$conn) {
