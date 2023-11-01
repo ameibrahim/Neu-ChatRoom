@@ -37,11 +37,6 @@ body{
     /* background: red; */
 }
 
-.chat-view{
-    background-color: blue;
-    left: 100%;
-}
-
 .contacts-container{
     width: 100%;
     position: relative;
