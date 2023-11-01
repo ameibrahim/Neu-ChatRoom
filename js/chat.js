@@ -1,6 +1,15 @@
+let messageContainer = document.querySelector(".messages-container");
 let callView = document.querySelector(".call-card-view");
 let lastSyncedMessageID = "";
 
+/* Move to call.js */
+function showCallView() { callView.style.display = "grid"; }
+function hideCallView() { callView.style.display = "none"; }
+function placeCall() { showCallView(); }
+function endCall() { hideCallView(); }
+
+
+/* Move to UtilFunctions.js */
 function createMessageID(preText = ""){
     const date = Date.now();
     return preText + date;
@@ -18,6 +27,7 @@ function addslashes( str ) {
 function scrollBottom(element) {
     element.scroll({ top: element.scrollHeight, behavior: "smooth"})
 }
+/* End of Util Functions*/
 
 async function loadMessagesFrom(chatID) {
 
@@ -51,12 +61,10 @@ async function loadMessagesFrom(chatID) {
 
 function displayMessagesFor(givenID, messages){
 
-    let messageContainer = document.querySelector(".messages-container");
     let containerHTML = "";
-
     // console.log("messages: ", messages);
 
-    messages.forEach( (message,index) => {
+    messages.forEach( message => {
 
         let className = "";
         let nametag = "";
@@ -99,8 +107,6 @@ function displayMessagesFor(givenID, messages){
 
 function pushMessageToView(givenID, messageObject){
 
-    let messageContainer = document.querySelector(".messages-container");
-
     let className = "";
     let nametag = "";
 
@@ -139,22 +145,6 @@ function pushMessageToView(givenID, messageObject){
 
     scrollBottom(messageContainer);
 
-}
-
-function showCallView() {
-    callView.style.display = "grid";
-}
-
-function hideCallView() {
-    callView.style.display = "none";
-}
-
-function placeCall() {
-    showCallView();
-}
-
-function endCall() {
-    hideCallView();
 }
 
 let messageTypingInput = document.querySelector(".message-typing-input");
