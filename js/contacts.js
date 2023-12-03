@@ -2,7 +2,8 @@ let chatView = document.querySelector(".chat-view");
 let contactsView = document.querySelector(".contacts-view");
 slideOutChatView();
 
-let globalChatID = "";
+// let globalChatID = "";
+let chat;
 
 function slideInChatView(eventTrigger){ 
     chatView.style.left = "0%";
@@ -18,8 +19,8 @@ function slideInChatView(eventTrigger){
     let emailPlaceholder = document.querySelector(".members");
     emailPlaceholder.textContent = `( ${email} )`;
 
-    globalChatID = chatID;
-    loadMessagesFrom(chatID);
+    // globalChatID = chatID
+    chat = new Chat(chatID);
 }
 
 function slideOutChatView(){ chatView.style.left = "100%" }
