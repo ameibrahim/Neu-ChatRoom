@@ -14,7 +14,7 @@
 
 body{
     display: grid;
-    height: 100vh;
+    height: 100vh; /* Bug on iPhone Viewports */
     place-items: center;
 }
 
@@ -22,12 +22,14 @@ body{
     position: relative;
     width: 500px;
     height: 700px;
+    background-color: white;
     /* border: 1px solid red; */
     /* transform: scale(0.8); */
 }
 
-.chat-view{
+.chat-view {
     /* overflow: hidden; */
+    position: absolute;
     width: 100%;
     height: 100%;
     display: grid;
@@ -137,6 +139,10 @@ body{
     padding: 0px 15px;
     grid-gap: 10px;
     overflow: scroll;
+    /*TODO: Fix scroll height issue*/
+    /* height: calc( 700px - 61px - 69px + ( 15px + 1em + 15px + 25px ) ); */
+    /* border: 1px solid red; */
+    align-items: start;
 }
 
 .messages-container > li {
@@ -158,7 +164,7 @@ body{
     margin-bottom: 15px;
 }
 
-.messages-container > .mine{
+.messages-container > .mine {
     place-self: end;
     background-color: #75CB87;
     /* background-color: hsl(0,0%,20%); */
@@ -166,7 +172,7 @@ body{
     margin-right: 45px;
 }
 
-.messages-container > .foreign{
+.messages-container > .foreign {
     place-self: start;
     background-color: white;
     /* background: linear-gradient(90deg, #fdfdfdf6, #f6f6f6f6, #fafafaf6); */
@@ -222,4 +228,53 @@ body{
 
 .back-button{
     cursor: pointer;
+}
+
+@media screen and (max-width: 500px) {
+    .main-container{
+        width: 100%;
+        height: 100%;
+        border-radius: 0px;
+    }
+
+    .message-header{
+        padding: 10px 12px;
+        grid-template-columns: 30px 40px 1fr auto;
+        align-items: center;
+        grid-gap: 10px;
+        backdrop-filter: blur(50px);
+        z-index: 10;
+    }
+
+    .messages-container{
+        grid-gap: 15px;
+    }
+
+    .members {
+        display: none;
+    }
+
+    .name-tag {
+        height: 30px;
+        width: 30px;
+    }
+
+    .messages-container > .mine {
+        margin-right: 35px;
+    }
+    
+    .messages-container > .foreign {
+        margin-left: 35px;
+    }
+
+    .mine > .name-tag { right: -38px; background: #4a8056; }
+    .foreign > .name-tag { left: -38px; background: #bdb7a9;}
+
+}
+
+@media screen and (max-height: 720px) {
+    .main-container{
+        height: 100%;
+        border-radius: 0px;
+    }
 }

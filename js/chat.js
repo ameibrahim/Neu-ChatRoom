@@ -189,7 +189,7 @@ async function sendMessage(messageObject) {
     let params = `messageID=${messageID}&&`+
         `chatID=${chatID}&&`+
         `message=${addslashes(message)}&&`+
-        `senderID=${senderID}&&`;
+        `senderID=${senderID}`;
 
     return new Promise((resolve,reject) => {
 
@@ -268,9 +268,7 @@ function loadNewMessages(chatID, lastSyncedMessageID){
 async function startContinuousCheckForNewMessages(){
     setInterval(() => {
         loadNewMessages(globalChatID,lastSyncedMessageID);
-    }, 2000);
-
-    //TODO:  Is there a better way to do this?
+    }, 4000);
 }
 
 // TODO: create a function that load older message when you scroll too

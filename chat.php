@@ -2,10 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+ -->
+ <meta name="viewport" content="initial-scale = 1.0,maximum-scale = 1.0" />
     <title>ChatRoom</title>
     <link rel="stylesheet" href="css/contacts.css">
-    <link rel="stylesheet" href="css/chat.css">
+    <link rel="stylesheet" href="css/chat.css?4">
     <link rel="stylesheet" href="css/call.css">
     <?php include 'include/initialize-user-details.js.php'; ?>
     <script src="js/contacts.js" defer></script>
