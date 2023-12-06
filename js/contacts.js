@@ -11,6 +11,8 @@ function slideInChatView(eventTrigger){
     let username = eventTrigger.getAttribute("data-username");
     // let email = eventTrigger.getAttribute("data-email");
 
+    console.log("csn: ", username);
+
     let usernamePlaceholder = document.querySelector(".message-header-title");
     usernamePlaceholder.textContent = username;
 
@@ -94,10 +96,10 @@ async function buildContactsView(contacts){
     let contactsContainer = document.querySelector(".contacts-container");
 
     let HTMLContent =
-    contacts.map( contact => 
+    contacts.map( contact => {
         
-        `
-            <div class="contact-row" data-username=${contact.username ?? contact.name } data-chatid=${contact.chat_id} onclick="slideInChatView(this)">
+        return `
+            <div class="contact-row" data-username="${contact.username ?? contact.name }" data-chatid="${contact.chat_id}" onclick="slideInChatView(this)">
                 <div class="avatar">
                     <img src="images/person.jpg">
                 </div>
@@ -108,6 +110,8 @@ async function buildContactsView(contacts){
                 </span>
             </div>
         `
+
+    }
 
     ).join('');
 

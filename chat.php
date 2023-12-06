@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="css/chat.css?4">
     <link rel="stylesheet" href="css/call.css">
     <?php include 'include/initialize-user-details.js.php'; ?>
-    <script src="js/contacts.js?2" defer></script>
+    <script src="js/contacts.js?5" defer></script>
     <script src="js/ChatClass.js" defer></script>
 </head>
 <body>
