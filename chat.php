@@ -6,11 +6,11 @@
  -->
  <meta name="viewport" content="initial-scale = 1.0,maximum-scale = 1.0" />
     <title>ChatRoom</title>
-    <link rel="stylesheet" href="css/contacts.css">
+    <link rel="stylesheet" href="css/contacts.css?1">
     <link rel="stylesheet" href="css/chat.css?4">
     <link rel="stylesheet" href="css/call.css">
     <?php include 'include/initialize-user-details.js.php'; ?>
-    <script src="js/contacts.js?1" defer></script>
+    <script src="js/contacts.js?2" defer></script>
     <script src="js/ChatClass.js" defer></script>
 </head>
 <body>
@@ -42,7 +42,7 @@
                         <img src="images/person.jpg" alt="group shot">
                     </div>
                     <p class="message-header-title"></p>
-                    <p class="members">( 2 Members )</p>
+                    <p class="members"></p>
     
                     <div onclick="placeCall()" class="call-action-button pickup small-size">
                         <img src="images/green-call.png" alt="">

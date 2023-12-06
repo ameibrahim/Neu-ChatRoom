@@ -9,15 +9,13 @@ function slideInChatView(eventTrigger){
     chatView.style.left = "0%";
     let chatID = eventTrigger.getAttribute("data-chatid");
     let username = eventTrigger.getAttribute("data-username");
-    let email = eventTrigger.getAttribute("data-email");
-    let receiver = eventTrigger.getAttribute("data-receiver"); /*
-    should this be refetched ??? */
+    // let email = eventTrigger.getAttribute("data-email");
 
     let usernamePlaceholder = document.querySelector(".message-header-title");
     usernamePlaceholder.textContent = username;
 
     let emailPlaceholder = document.querySelector(".members");
-    emailPlaceholder.textContent = `( ${email} )`;
+    // emailPlaceholder.textContent = `( ${email} )`;
 
     // globalChatID = chatID
     chat = new Chat(chatID);
@@ -29,8 +27,11 @@ function slideInContactsView(){ contactsView.style.left = "0%" }
 
 ( async () => {
 
-    let results = await loadContacts(personalID);
-    await buildContactsView(results);
+    let contacts = await loadContacts(personalID);
+    let groups = await loadGroups(personalID);
+    let all = [...groups, ...contacts]; // sort somehow? alphabetically? ... 
+    console.log(all);
+    await buildContactsView(all);
 
 })();
 
@@ -63,29 +64,52 @@ async function loadContacts(personalID) {
     
 }
 
-async function buildContactsView(contacts){
-    let contactsContainer = document.querySelector(".contacts-container");
-    let HTMLContent = '';
+async function loadGroups(personalID) {
 
-    contacts.forEach(contact => {
+    return new Promise((resolve,reject) => {
+        let params = `personalID=${personalID}`;
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", "include/groups.fetch.php", true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+        xhr.onload = function(){
+            if( this.status == 200 ){
+                let groups = JSON.parse(this.responseText);
+                console.log(groups);
+                resolve(groups);
+            }
+            else{
+                reject("Error Fetching Group Details");
+            }
+        }
+
+        xhr.send(params);
+
+    });
+    
+}
+
+async function buildContactsView(contacts){
+
+    let contactsContainer = document.querySelector(".contacts-container");
+
+    let HTMLContent =
+    contacts.map( contact => 
         
-        let contactRow = `
-            <div class="contact-row" data-email=${contact.email} data-username=${contact.username} data-receiver=${contact.receiver} data-chatid=${contact.chat_id} onclick="slideInChatView(this)">
-                <!-- what if the data-chatid was already placed as a link -->
+        `
+            <div class="contact-row" data-username=${contact.username ?? contact.name } data-chatid=${contact.chat_id} onclick="slideInChatView(this)">
                 <div class="avatar">
                     <img src="images/person.jpg">
                 </div>
-                <p class="row-title">${contact.username}</p>
+                <p class="row-title">${contact.username ?? contact.name }</p>
                 <span class="action-icon">
                     <!-- <img src="images/icons/fi-rr-angle-small-right.svg" alt=""> -->
                     <img src="images/icons/fi-rr-angle-circle-right.svg" alt="">
                 </span>
             </div>
-        `;
+        `
 
-        HTMLContent += contactRow;
-
-    });
+    ).join('');
 
     contactsContainer.innerHTML = HTMLContent;
 

@@ -40,12 +40,10 @@ body{
 .contacts-container{
     width: 100%;
     position: relative;
-    display: grid;
-    grid-template-rows: auto 1fr auto;
+    /* display: grid; */
     margin-top: var(--margin-from-header);
     overflow: scroll;
     height: calc(100% - var(--margin-from-header));
-    align-items: start;
 }
 
 .personal-header{

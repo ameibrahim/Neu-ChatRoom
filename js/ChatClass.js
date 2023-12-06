@@ -74,10 +74,7 @@ class Chat {
                         
                         resolve(messageObject);
                     }
-                    // pushMessageToView needs to be pushMessagesToView
-                    // displayMessagesFor(personalID, messages);
-                    // if(details == "") reject("Report Does Not Exist");
-                    // else { resolve(details) }
+                    // TODO: pushMessageToView needs to be pushMessagesToView
                     
                 }
                 else{
@@ -88,9 +85,7 @@ class Chat {
             xhr.send(params);
     
         });
-    
-        //TODO: use the lastSyncedMessageID to filter all the newest messages from the database ... K.I
-        //TODO: return the values and repopulate the view
+
     }
 
     pushMessageToView(givenID, messageObject){
@@ -101,8 +96,7 @@ class Chat {
         let nametag = "";
     
         let { messageID, message, senderID } = messageObject;
-        // Standardize how you name these variables across MYSQL and JS
-    
+
         switch(senderID){
             case givenID:
                 className = "mine";
@@ -140,22 +134,48 @@ class Chat {
     displayMessagesFor(givenID, messages){
 
         let containerHTML = "";
+
+        let mine = {
+            className : "mine",
+            nametag : "M"
+        }
+
+        let foreignA = {
+            className : "foreign foreign-a",
+            nametag : "A"
+        }
+
+        let foreignB = {
+            className : "foreign foreign-b",
+            nametag : "B"
+        }
+
+        let lastID;
+        let chosenProfile = foreignB;
     
         messages.forEach( message => {
     
             let className = "";
             let nametag = "";
+
+            console.log("lastID: ", lastID, "current: ", message.sender_id);
     
-            switch(message.sender_id){
-                case givenID:
-                    className = "mine";
-                    nametag = "A";
-                break;
-                default:
-                    className = "foreign foreign-a";
-                    nametag = "B";
-                break;
-            } 
+
+            if(message.sender_id == givenID){
+                chosenProfile = mine;
+            }
+            else if(message.sender_id == lastID){
+        
+            }
+            else if(message.sender_id != lastID){
+                chosenProfile = 
+                chosenProfile.className == foreignA.className ? 
+                foreignB : foreignA
+                ;
+            }
+
+            className = chosenProfile.className;
+            nametag = chosenProfile.nametag;
     
             // let nametag = createTag(message.username);
     
@@ -172,6 +192,7 @@ class Chat {
     
             containerHTML += messageStructure;
             this.lastSyncedMessageIDs.push(message.message_id);
+            lastID = message.sender_id;
     
         });
     
@@ -187,12 +208,12 @@ class Chat {
         return time;
     }
 
-    async startContinuousCheckForNewMessages(){
+    startContinuousCheckForNewMessages(){
         setInterval(() => {
             this.loadNewMessages().then( messageObject => {
                 this.pushMessageToView(personalID, messageObject);
             });
-        }, 4000);
+        }, 2000);
     }
 
 }
@@ -319,20 +340,16 @@ function scrollBottom(element) {
 
 sendMessageButton.addEventListener('click', async () => {
 
-        let messageObject = { 
-            content: messageTypingInput.value, 
-            senderID: personalID,
-            chatID: chat.chatID 
-        }
+    let messageObject = { 
+        content: messageTypingInput.value, 
+        senderID: personalID,
+        chatID: chat.chatID 
+    }
 
-        let message = new Message(type = "new", messageObject);
-        await message.sendMessage();
+    let message = new Message(type = "new", messageObject);
+    await message.sendMessage();
 
-        // What happens when the user presses enter
-        messageTypingInput.value = "";
-        // pushMessageToView(personalID, messageObject);
-
-        // showMessageLoaderPromise();
+    messageTypingInput.value = "";
 
 });
 
