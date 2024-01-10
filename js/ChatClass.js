@@ -115,7 +115,7 @@ class Chat {
         let messageStructure = `
             <p class="name-tag">${nametag}</p>
             <p>${message}</p>
-            <p class="time-tag">${messageTime} am</p>
+            <p class="time-tag">${messageTime}</p>
         `;
         
         let innerContainer = document.createElement("li");
