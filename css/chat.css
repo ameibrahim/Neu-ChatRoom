@@ -191,7 +191,7 @@ body{
     position: absolute;
     font-size: 10px;
     align-self: center;
-    right: -50px;
+    right: -35px;
 }
 
 .mine > .time-tag {
@@ -199,7 +199,7 @@ body{
     font-size: 10px;
     align-self: center;
     justify-self: start;
-    left: -50px;
+    left: -35px;
 }
 
 .messages-container > li.foreign{
