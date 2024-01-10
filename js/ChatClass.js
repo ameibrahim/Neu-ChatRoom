@@ -186,7 +186,7 @@ class Chat {
                 <li class="${className}">
                     <p class="name-tag">${nametag}</p>
                     <p>${message.message}</p>
-                    <p class="time-tag">${messageTime} am</p>
+                    <p class="time-tag">${messageTime}</p>
                 </li>
             `;
     
